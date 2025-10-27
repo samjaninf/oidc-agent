@@ -31,6 +31,7 @@ char* generateDeviceCodePostData(const struct oidc_account* a) {
     }
   }
 
+  addCustomParameters(postDataList, a, OIDC_REQUEST_TYPE_DEVICEINIT);
   char* str = generatePostDataFromList(postDataList);
   list_destroy(postDataList);
   secFree(aud_tmp);
