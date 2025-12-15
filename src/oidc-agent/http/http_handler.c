@@ -12,8 +12,9 @@
 #include "utils/string/oidc_string.h"
 #include "utils/string/stringUtils.h"
 
-static size_t write_callback(void* ptr, size_t size, size_t nmemb,
-                             struct string* s) {
+static size_t write_callback(char* ptr, size_t size, size_t nmemb,
+                             void* str) {
+  struct string* s = str;
   size_t new_len = s->len + size * nmemb;
   void*  tmp     = secRealloc(s->ptr, new_len + 1);
   if (tmp == NULL) {
@@ -28,10 +29,10 @@ static size_t write_callback(void* ptr, size_t size, size_t nmemb,
 }
 
 #ifndef AGENT_CURL_CONNECT_TIMEOUT
-#define AGENT_CURL_CONNECT_TIMEOUT 5
+#define AGENT_CURL_CONNECT_TIMEOUT 5L
 #endif
 #ifndef AGENT_CURL_TIMEOUT
-#define AGENT_CURL_TIMEOUT 10
+#define AGENT_CURL_TIMEOUT 10L
 #endif
 
 static unsigned char mem_init = 0;
