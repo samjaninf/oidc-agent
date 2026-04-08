@@ -12,6 +12,17 @@
 <!-- ### Dependencies -->
 <!--  -->
 
+## oidc-agent 5.3.4
+
+### Enhancements
+
+- Added custom parameters to device flow initialization.
+- Improved makefile to use default lib location not only on debian-based distros.
+
+### Bugfixes
+
+- Fixed audience handling in device flow.
+
 ## oidc-agent 5.3.3
 
 ### Bugfixes
