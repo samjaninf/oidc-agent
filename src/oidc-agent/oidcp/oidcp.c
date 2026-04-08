@@ -22,6 +22,7 @@
 #include "oidc-agent/agent_state.h"
 #include "oidc-agent/daemonize.h"
 #include "oidc-agent/oidc/device_code.h"
+#include "oidc-agent/oidc/flows/openid_config.h"
 #include "oidc-agent/oidcd/parse_internal.h"
 #include "oidc-agent/oidcp/passwords/agent_prompt.h"
 #include "oidc-agent/oidcp/passwords/askpass.h"
@@ -577,9 +578,18 @@ void handleAutoGen(struct ipcPipe pipes, int sock,
     if (account_getMytokenUrl(account)) {
       account_setAuthScopeExact(account, oidc_strcopy(scopes));
     } else {
-      account_setAuthScope(account, usedUserClient
-                                        ? getScopesForUserClient(account)
-                                        : getScopesForPublicClient(account));
+      char* resolved = usedUserClient ? getScopesForUserClient(account)
+                                      : getScopesForPublicClient(account);
+      if (!strValid(resolved)) {
+        secFree(resolved);
+        // Fallback: fetch scopes from OP discovery endpoint
+        char* cert_path = account_getCertPathOrDefault(account);
+        resolved        = getScopesSupportedFor(account_getIssuerUrl(account),
+                                                account_getConfigEndpoint(account),
+                                                cert_path);
+        secFree(cert_path);
+      }
+      account_setAuthScope(account, resolved);
     }
   } else {
     account_setAuthScope(account, oidc_strcopy(scopes));
