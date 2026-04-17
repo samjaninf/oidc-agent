@@ -30,8 +30,15 @@ access your tokens. Use it wisely.
 
 
 ### Server
+
 On the server, you have to set the `OIDC_SOCK`
 environment variable (`export OIDC_SOCK=/tmp/oidc-forward`).
+
+If you use
+[`oinit`](https://github.com/m-team-kit/oinit/), both of these changes are
+not necessary. The ssh-server-side tool `oinit-switch` handles these two
+points:
+
 
 **We recommend the following configurations:**
 Put the following in your `.profile`, `.zshrc`, or `.bash_profile` on the server:
