@@ -2,6 +2,10 @@
 
 DEVSTRING="pr"
 VERSION_FILE=VERSION
+LOG=/tmp/set-prerelease-version.log
+exec >> $LOG
+exec 2>> $LOG
+rm -f $LOG
 
 while [[ $# -gt 0 ]]; do
   case $1 in
