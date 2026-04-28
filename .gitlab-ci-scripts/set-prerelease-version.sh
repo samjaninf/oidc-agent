@@ -56,14 +56,14 @@ get_master_branch_of_mteam() {
 }
 
 MASTER_BRANCH=$(get_master_branch_of_mteam)
-PREREL=$(git rev-list --count HEAD ^"$MASTER_BRANCH")
+PREREL_NUMBER=$(git rev-list --count HEAD ^"$MASTER_BRANCH")
 
 
 
 # use version file:
 VERSION=$(cat $VERSION_FILE)
 VERSION_ESCAPED=$(echo ${VERSION} | sed s/\\\./\\\\./g); echo $VER
-PR_VERSION="${VERSION}-${DEVSTRING}${PREREL}"
+PR_VERSION="${VERSION}-${DEVSTRING}${PREREL_NUMBER}"
 echo "$PR_VERSION" > $VERSION_FILE
 echo "$PR_VERSION"
 
