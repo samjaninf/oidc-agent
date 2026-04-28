@@ -100,8 +100,7 @@ echo "TILDE_VERSION: ${TILDE_VERSION}"
     [ -z "${VERSION_ESCAPED}" ] || {
         for SPEC_FILE in $SPEC_FILES; do
             grep -q "$VERSION_ESCAPED" "$SPEC_FILE" && { # version found, needs update
-                # sed "s/${VERSION_ESCAPED}/${TILDE_VERSION}/" -i "$SPEC_FILE"
-                sed "s/${VERSION_ESCAPED}/${PR_VERSION}/" -i "$SPEC_FILE"
+                sed "s/${VERSION_ESCAPED}/${TILDE_VERSION}/" -i "$SPEC_FILE"
             }
             echo "SPEC_FILE: ${SPEC_FILE}"
             head -n 40 "${SPEC_FILE}" >> $LOG
