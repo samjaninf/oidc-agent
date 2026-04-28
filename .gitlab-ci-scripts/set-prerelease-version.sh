@@ -26,6 +26,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+echo "---- oidc-agent-locat set-prerelease-version.sh "
+
 [[ "${CI}" == "true" ]] && {
     git config --global --add safe.directory "$PWD"
 }
@@ -102,3 +104,4 @@ SPEC_FILES=$(ls rpm/*spec)
         done
     }
 }
+echo -e "---- /oidc-agent-local set-prerlease-version -------------------------------------\n\n" >> $LOG
