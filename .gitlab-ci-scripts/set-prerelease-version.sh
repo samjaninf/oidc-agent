@@ -90,9 +90,12 @@ TILDE_VERSION="$(echo $PR_VERSION | sed 's/-/~/g')"
     head -n 40 debian/changelog
 }
 
-
+echo "hey-ho rpm"
 # lets see if RPM also needs a version to be set
 SPEC_FILES=$(ls rpm/*spec)
+echo "SPEC_FILES: ${SPEC_FILES}"
+echo "VERSION_ESCAPED: ${VERSION_ESCAPED}"
+echo "TILDE_VERSION: ${TILDE_VERSION}"
 [ -z "${SPEC_FILES}" ] || {
     [ -z "${VERSION_ESCAPED}" ] || {
         for SPEC_FILE in $SPEC_FILES; do
@@ -100,8 +103,8 @@ SPEC_FILES=$(ls rpm/*spec)
                 sed "s/${VERSION_ESCAPED}/${TILDE_VERSION}/" -i "$SPEC_FILE"
             }
             echo "SPEC_FILE: ${SPEC_FILE}"
-            head -n 40 "${SPEC_FILE}"
+            head -n 40 "${SPEC_FILE}" >> $LOG
         done
     }
 }
-echo -e "---- /oidc-agent-local set-prerlease-version -------------------------------------\n\n" >> $LOG
+echo -e "---- /oidc-agent-local set-prerlease-version -----------------------\n\n" >> $LOG
