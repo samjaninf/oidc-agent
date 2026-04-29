@@ -63,7 +63,8 @@ case ${DISTRO} in
             done
         }
         case ${RELEASE} in
-            buster)     make buster-debsource                           ;;
+            buster)     apt-get update && apt-get install -y pkgconf; 
+                        make buster-debsource                           ;;
             bionic)     make bionic-debsource                           ;;
             focal)      make focal-debsource                            ;;
             buster)     make buster-debsource                           ;;
